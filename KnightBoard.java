@@ -63,9 +63,8 @@ public class KnightBoard{
    or out of bounds.
    */
   public boolean solve(int startingRow, int startingCol){
-    if (!checkBoard()) {
-      throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");
-    }
+    if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
+    if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
     return true;
   }
 
@@ -83,10 +82,13 @@ public class KnightBoard{
 
   public static void main (String[] args){
     KnightBoard board = new KnightBoard(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
-    board.board[0][0]=1;
+
+    //board.board[0][0]=1;
+
     //System.out.println(board.toStringDebug());
     //System.out.println(board);
-    solve()
+
+    board.solve(0,3);
   }
 
 }
