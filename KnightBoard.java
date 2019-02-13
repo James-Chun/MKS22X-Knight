@@ -73,7 +73,11 @@ public class KnightBoard{
   @throws IllegalArgumentException when either parameter is negative
    or out of bounds.
    */
-  //public int countSolutions(int startingRow, int startingCol)
+  public int countSolutions(int startingRow, int startingCol){
+    if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
+    if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
+    return true;  
+  }
 
   //Suggestion:
   //private boolean solveH(int row ,int col, int level)
@@ -88,7 +92,7 @@ public class KnightBoard{
     //System.out.println(board.toStringDebug());
     //System.out.println(board);
 
-    board.solve(0,3);
+    //board.solve(0,3);
   }
 
 }
