@@ -89,7 +89,19 @@ public class KnightBoard{
   }
 
   //Suggestion:
-  //private boolean solveH(int row ,int col, int level)
+  private boolean solveH(int row ,int col, int level){
+    if (solved())return true;
+
+    for (int rows=0;rows<board.length;rows++){       //simply a temp psuedo code
+      if (addQueen(rows,column) && helper(column+1)){   //you need to go through all possible moves
+        return true;
+      }
+
+      removeQueen(rows,column);       //
+    }
+    return false;
+  }
+
   // level is the # of the knight
 
 
