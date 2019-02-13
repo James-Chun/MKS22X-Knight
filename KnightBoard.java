@@ -76,7 +76,7 @@ public class KnightBoard{
   public int countSolutions(int startingRow, int startingCol){
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
-    return true;  
+    return true;
   }
 
   //Suggestion:
@@ -93,6 +93,7 @@ public class KnightBoard{
     //System.out.println(board);
 
     //board.solve(0,3);
+    
   }
 
 }
