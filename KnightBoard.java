@@ -16,6 +16,8 @@ public class KnightBoard{
 
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   /*
   blank boards display 0's as underscores
   you get a blank board if you never called solve or --(Im guessing when you call solve it changes the board so I can leave this as is)
@@ -47,6 +49,18 @@ public class KnightBoard{
     return visual;
   }
 
+  public String moves(){    //debug methods to show moves
+    String visual = "";
+    for (int rows=0;rows<moves.length;rows++){
+      for (int columns=0;columns<moves[rows].length;columns++){
+          visual += moves[rows][columns]+" ";
+      }
+      visual += "\n";
+    }
+    return visual;
+  }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   private boolean checkBoard(){   //simply checks the board and sees if it contains only zeroes
     for (int rows=0;rows<board.length;rows++){
@@ -75,7 +89,7 @@ public class KnightBoard{
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
 
-    return false;
+    return solveH(startingRow,startingCol,0);
   }
 
   /*
@@ -89,20 +103,23 @@ public class KnightBoard{
     return 0;
   }
 
+
   //Suggestion:
-  /*
-  private boolean solveH(int row ,int col, int level){
+
+  private boolean solveH(int row ,int col, int level){    //need to call possibleMOves somewhere here
     if (solved())return true;
 
-    for (int rows=0;rows<board.length;rows++){       //simply a temp psuedo code
-      if (addQueen(rows,column) && helper(column+1)){   //you need to go through all possible moves
-        return true;
+    for (int m=0;m<moves.length;m++){       //simply a temp psuedo code
+      if ( solveH(startingRow+moves[m][0],startingCol+moves[m][1],level+1) ){
+        return sol
       }
 
       removeQueen(rows,column);       //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
-  }*/
+  }
+
+
 
   private void possibleMoves(int currentRow, int currentCol){   //takes current coords of the knight and finds all possible moves.
     moves = new int[8][2];    //clearing the moves array
@@ -115,7 +132,7 @@ public class KnightBoard{
       }
       if (currentCol+1<=board[0].length){
         moves[temp][0]=-2;
-        moves[temp][1]=1;
+        moves[temp][1]=1;                       //this works just make it cleaner later I guess
         temp++;
       }
     }
@@ -161,19 +178,6 @@ public class KnightBoard{
 
   }
 
-  public String mover(){
-    String visual = "";
-    for (int rows=0;rows<moves.length;rows++){
-      for (int columns=0;columns<moves[rows].length;columns++){
-
-          visual += moves[rows][columns]+" ";
-
-      }
-      visual += "\n";
-    }
-    return visual;
-  }
-
 
 
 
@@ -183,15 +187,12 @@ public class KnightBoard{
   public static void main (String[] args){
     KnightBoard board = new KnightBoard(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 
-    //board.board[0][0]=1;
 
     System.out.println(board.toStringDebug());
     //System.out.println(board);
 
-    //board.solve(0,3);
 
-    board.possibleMoves(2,2);
-    System.out.println(board.mover());
+    System.out.println(board.moves());
   }
 
 }
