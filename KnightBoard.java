@@ -86,10 +86,11 @@ public class KnightBoard{
   public int countSolutions(int startingRow, int startingCol){
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
-    return true;
+    return 0;
   }
 
   //Suggestion:
+  /*
   private boolean solveH(int row ,int col, int level){
     if (solved())return true;
 
@@ -101,13 +102,63 @@ public class KnightBoard{
       removeQueen(rows,column);       //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
-  }
+  }*/
 
   private void possibleMoves(int currentRow, int currentCol){   //takes current coords of the knight and finds all possible moves.
-    moves = new int[][];    //clearing the moves array
-    if (currentRow-2>=0){
-
+    moves = new int[8][2];    //clearing the moves array
+    int temp=0;   //keeping track of location in moves
+    if (currentRow-2>=0){   //each array in moves is possible routes, each number in each subarray are specific directions (first is moving up or down[- || +] and second is moving left or right[- || +])
+      if (currentCol-1>=0){
+        moves[temp][0]=-2;
+        moves[temp][1]=-1;
+        temp++;
+      }
+      if (currentCol+1<=board[0].length){
+        moves[temp][0]=-2;
+        moves[temp][1]=1;
+        temp++;
+      }
     }
+
+    if (currentRow+2<=board[0].length){
+      if (currentCol-1>=0){
+        moves[temp][0]=2;
+        moves[temp][1]=-1;
+        temp++;
+      }
+      if (currentCol+1<=board[0].length){
+        moves[temp][0]=2;
+        moves[temp][1]=1;
+        temp++;
+      }
+    }
+
+    if (currentRow-1>=0){
+      if (currentCol-2>=0){
+        moves[temp][0]=-1;
+        moves[temp][1]=-2;
+        temp++;
+      }
+      if (currentCol+2<=board[0].length){
+        moves[temp][0]=-1;
+        moves[temp][1]=2;
+        temp++;
+      }
+    }
+
+    if (currentRow+1<=board[0].length){
+      if (currentCol-2>=0){
+        moves[temp][0]=1;
+        moves[temp][1]=-2;
+        temp++;
+      }
+      if (currentCol+2<=board[0].length){
+        moves[temp][0]=1;
+        moves[temp][1]=2;
+        temp++;
+      }
+    }
+
   }
 
 
