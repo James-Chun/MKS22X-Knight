@@ -161,6 +161,19 @@ public class KnightBoard{
 
   }
 
+  public String mover(){
+    String visual = "";
+    for (int rows=0;rows<moves.length;rows++){
+      for (int columns=0;columns<moves[rows].length;columns++){
+
+          visual += moves[rows][columns]+" ";
+
+      }
+      visual += "\n";
+    }
+    return visual;
+  }
+
 
 
 
@@ -172,11 +185,13 @@ public class KnightBoard{
 
     //board.board[0][0]=1;
 
-    //System.out.println(board.toStringDebug());
+    System.out.println(board.toStringDebug());
     //System.out.println(board);
 
     //board.solve(0,3);
 
+    board.possibleMoves(2,2);
+    System.out.println(board.mover());
   }
 
 }
