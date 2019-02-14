@@ -1,5 +1,6 @@
 public class KnightBoard{
   private int[][] board;
+  private int[][] moves;
 
 
   //@throws IllegalArgumentException when either parameter is negative.
@@ -97,10 +98,20 @@ public class KnightBoard{
         return true;
       }
 
-      removeQueen(rows,column);       //
+      removeQueen(rows,column);       //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
   }
+
+  private void possibleMoves(int currentRow, int currentCol){   //takes current coords of the knight and finds all possible moves.
+    moves = new int[][];    //clearing the moves array
+    if (currentRow-2>=0){
+
+    }
+  }
+
+
+
 
   // level is the # of the knight
 
