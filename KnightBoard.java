@@ -110,7 +110,7 @@ public class KnightBoard{
     if (solved())return true;
 
     for (int m=0;m<moves.length;m++){       //simply a temp psuedo code
-      if ( solveH(startingRow+moves[m][0],startingCol+moves[m][1],level+1) ){
+      if (moves[m]== solveH(startingRow+moves[m][0],startingCol+moves[m][1],level+1) ){   //remember, some values in moves will be null so check for that
         return sol
       }
 
@@ -122,7 +122,7 @@ public class KnightBoard{
 
 
   private void possibleMoves(int currentRow, int currentCol){   //takes current coords of the knight and finds all possible moves.
-    moves = new int[8][2];    //clearing the moves array
+    moves = new int[8][2];    //clearing the moves array [simply makes a list the size of all possible moves]
     int temp=0;   //keeping track of location in moves
     if (currentRow-2>=0){   //each array in moves is possible routes, each number in each subarray are specific directions (first is moving up or down[- || +] and second is moving left or right[- || +])
       if (currentCol-1>=0){
