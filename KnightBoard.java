@@ -126,8 +126,8 @@ public class KnightBoard{
     int temp=0;   //keeping track of location in moves
     if (currentRow-2>=0){   //each array in moves is possible routes, each number in each subarray are specific directions (first is moving up or down[- || +] and second is moving left or right[- || +])
       if (currentCol-1>=0){
-        moves[temp][0]=-2;
-        moves[temp][1]=-1;
+        moves[temp][0]=-2;        //dont do this just yet
+        moves[temp][1]=-1;        //the solve methods will have checks to see if given directions work
         temp++;
       }
       if (currentCol+1<=board[0].length){
