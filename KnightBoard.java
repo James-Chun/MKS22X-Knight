@@ -34,6 +34,7 @@ public class KnightBoard{
         if (board[rows][columns]==0){
           visual += "_ ";
         }
+        else{visual = visual + "" + board[rows][columns]+" ";}
       }
       visual += "\n";
     }
@@ -112,8 +113,8 @@ public class KnightBoard{
   //Suggestion:
 
   private boolean solveH(int row ,int col, int level){    //need to call possibleMOves somewhere here
-    if (level==row*col)return true;
-    if (row<0 || col<0 || row>board.length || col>board[0].length)return false;
+    if (level==board.length*board[0].length)return true;
+    if (row<0 || col<0 || row>=board.length || col>=board[0].length)return false;
 
     for (int m=0;m<moves.length;m++){       //simply a temp psuedo code
       board[row][col]=level;
