@@ -124,6 +124,7 @@ public class KnightBoard{
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
     board[startingRow][startingCol]=1;
     countHelper(startingRow,startingCol,2);
+    board[startingRow][startingCol]=0;
     return count;
   }
 
@@ -181,6 +182,7 @@ public class KnightBoard{
     //System.out.println(board.moves());
   //  System.out.println(board);
     board.solve(0,0);
+    //System.out.println(board.countSolutions(0,0));
     System.out.println(board);
     //System.out.println(board.toStringDebug());
   }
