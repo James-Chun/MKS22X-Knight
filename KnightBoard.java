@@ -127,10 +127,12 @@ public class KnightBoard{
     if (level>board.length * board[0].length)return true;
 
     for (int m=0;m<moves.length;m++){
-      if (addK(row+moves[m][0],col+moves[m][1],level) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
+      if (addK(row+moves[m][0],col+moves[m][1],level)) {
+       if (solveH(row+moves[m][0],col+moves[m][1],level+1)){
           return true;
         }
         removeK(row+moves[m][0],col+moves[m][1]);
+      }
       //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
