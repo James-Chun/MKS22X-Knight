@@ -86,6 +86,24 @@ public class KnightBoard{
   }*/
 
 
+
+
+  private boolean addK(int r, int c, int l){
+    if (board[r][c]==0){
+      board[r][c]=l;
+      return true;
+    }
+    return false;
+  }
+  private boolean removeK(int r, int c){
+    if (board[r][c]!=0){
+      board[r][r]=0;
+      return true;
+    }
+    return false;
+  }
+
+
   /*
   @throws IllegalStateException when the board contains non-zero values.
   @throws IllegalArgumentException when either parameter is negative
@@ -112,17 +130,18 @@ public class KnightBoard{
 
   //Suggestion:
 
-  private boolean solveH(int row ,int col, int level){    //need to call possibleMOves somewhere here
+  private boolean solveH(int row ,int col, int level){
     if (level==board.length*board[0].length)return true;
-    if (row<0 || col<0 || row>=board.length || col>=board[0].length)return false;
+    if (row<0 || col<0 || row>board.length || col>=board[0].length)return false;
 
     for (int m=0;m<moves.length;m++){       //simply a temp psuedo code
-      board[row][col]=level;
+      //board[row][col]=level;
 
-      if ( solveH(row+moves[m][0],col+moves[m][1],level+1) && board[row+moves[m][0]][col+moves[m][1]]==0 ){
+      if (addK(row,col,level+1) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
         return true;
       }
-      board[row][col]=0;
+      //board[row][col]=0;
+      removeK(row,col);
         //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
