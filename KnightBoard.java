@@ -32,7 +32,7 @@ public class KnightBoard{
     for (int rows=0;rows<board.length;rows++){
       for (int columns=0;columns<board[rows].length;columns++){
         if (board[rows][columns]==0){
-          visual += " ";
+          visual += " _";
         }
         else{
           if (board[rows][columns]/10==0) {visual = visual + "  " + board[rows][columns];}
@@ -67,7 +67,7 @@ public class KnightBoard{
     }
     return true;
   }
-  /*
+
   private boolean solved(){   //checks if the board is solved (if it contains no 0's then it is solved)
     for (int rows=0;rows<board.length;rows++){
       for (int columns=0;columns<board[rows].length;columns++){
@@ -75,7 +75,7 @@ public class KnightBoard{
       }
     }
     return true;
-  }*/
+  }
 
 
 
@@ -107,7 +107,12 @@ public class KnightBoard{
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
     board[startingRow][startingCol]=1;
-    return solveH(startingRow,startingCol,2);
+    solveH(startingRow,startingCol,2);
+    if ( solved() ) {
+        return true;
+    }
+    board[startingRow][startingCol]=0;
+    return false;
   }
 
   /*
@@ -155,7 +160,7 @@ public class KnightBoard{
     //System.out.println(board);
     //System.out.println(board.moves());
   //  System.out.println(board);
-    board.solve(4,0);
+    board.solve(0,0);
     System.out.println(board);
     //System.out.println(board.toStringDebug());
   }
