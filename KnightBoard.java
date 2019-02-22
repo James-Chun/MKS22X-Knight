@@ -54,17 +54,6 @@ public class KnightBoard{
     return visual;
   }
 
-  public String moves(){    //debug methods to show moves
-    String visual = "";
-    for (int rows=0;rows<moves.length;rows++){
-      for (int columns=0;columns<moves[rows].length;columns++){
-          visual += moves[rows][columns]+" ";
-      }
-      visual += "\n";
-    }
-    return visual;
-  }
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   private boolean checkBoard(){   //simply checks the board and sees if it contains only zeroes
@@ -89,6 +78,7 @@ public class KnightBoard{
 
 
   private boolean addK(int r, int c, int l){
+    if (r<0 || c<0 || r>=board.length || c>=board[0].length)return false;
     if (board[r][c]==0){
       board[r][c]=l;
       return true;
@@ -96,8 +86,9 @@ public class KnightBoard{
     return false;
   }
   private boolean removeK(int r, int c){
+    if (r<0 || c<0 || r>=board.length || c>=board[0].length)return false;
     if (board[r][c]!=0){
-      board[r][r]=0;
+      board[r][c]=0;
       return true;
     }
     return false;
@@ -112,7 +103,7 @@ public class KnightBoard{
   public boolean solve(int startingRow, int startingCol){
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
-    
+
     return solveH(startingRow,startingCol,1);
   }
 
@@ -131,18 +122,16 @@ public class KnightBoard{
   //Suggestion:
 
   private boolean solveH(int row ,int col, int level){
-    if (level==board.length*board[0].length)return true;
-    if (row<0 || col<0 || row>board.length || col>=board[0].length)return false;
 
-    for (int m=0;m<moves.length;m++){       //simply a temp psuedo code
-      //board[row][col]=level;
+    if (row<0 || col<0 || row>board.length || col>board[0].length)return false;
+    if (level>board.length * board[0].length)return true;
 
+    for (int m=0;m<moves.length;m++){
       if (addK(row,col,level) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
         return true;
       }
-      //board[row][col]=0;
       removeK(row,col);
-        //Do the same as queens except instead of going through all the rows, go through all possible moves
+      //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
   }
@@ -157,12 +146,13 @@ public class KnightBoard{
     KnightBoard board = new KnightBoard(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 
 
-    System.out.println(board.toStringDebug());
+    //System.out.println(board.toStringDebug());
     //System.out.println(board);
     //System.out.println(board.moves());
+  //  System.out.println(board);
+    board.solve(4,0);
     System.out.println(board);
-    board.solve(0,0);
-    System.out.println(board);
+    //System.out.println(board.toStringDebug());
   }
 
 }
