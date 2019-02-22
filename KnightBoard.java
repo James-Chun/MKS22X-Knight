@@ -112,7 +112,7 @@ public class KnightBoard{
   public boolean solve(int startingRow, int startingCol){
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
-
+    
     return solveH(startingRow,startingCol,1);
   }
 
@@ -137,7 +137,7 @@ public class KnightBoard{
     for (int m=0;m<moves.length;m++){       //simply a temp psuedo code
       //board[row][col]=level;
 
-      if (addK(row,col,level+1) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
+      if (addK(row,col,level) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
         return true;
       }
       //board[row][col]=0;
