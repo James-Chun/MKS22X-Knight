@@ -32,9 +32,12 @@ public class KnightBoard{
     for (int rows=0;rows<board.length;rows++){
       for (int columns=0;columns<board[rows].length;columns++){
         if (board[rows][columns]==0){
-          visual += "_ ";
+          visual += " ";
         }
-        else{visual = visual + "" + board[rows][columns]+" ";}
+        else{
+          if (board[rows][columns]/10==0) {visual = visual + "  " + board[rows][columns];}
+          else{visual = visual + " " + board[rows][columns];}
+        }
       }
       visual += "\n";
     }
