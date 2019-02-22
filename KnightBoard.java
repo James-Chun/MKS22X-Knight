@@ -1,6 +1,7 @@
 public class KnightBoard{
   private int[][] board;
   private int[][] moves;
+  private int count;
 
 
   //@throws IllegalArgumentException when either parameter is negative.
@@ -107,10 +108,8 @@ public class KnightBoard{
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
     board[startingRow][startingCol]=1;
-    solveH(startingRow,startingCol,2);
-    if ( solved() ) {
-        return true;
-    }
+    solveHelper(startingRow,startingCol,2);
+    if ( solved() ) {return true;}
     board[startingRow][startingCol]=0;
     return false;
   }
@@ -123,20 +122,41 @@ public class KnightBoard{
   public int countSolutions(int startingRow, int startingCol){
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
-    return 0;
+    board[startingRow][startingCol]=1;
+    countHelper(startingRow,startingCol,2);
+    return count;
   }
 
 
   //Suggestion:
 
-  private boolean solveH(int row ,int col, int level){
+  private boolean solveHelper(int row ,int col, int level){
 
     if (row<0 || col<0 || row>board.length || col>board[0].length)return false;
     if (level>board.length * board[0].length)return true;
 
     for (int m=0;m<moves.length;m++){
       if (addK(row+moves[m][0],col+moves[m][1],level)) {
-       if (solveH(row+moves[m][0],col+moves[m][1],level+1)){
+       if (solveHelper(row+moves[m][0],col+moves[m][1],level+1)){
+          return true;
+        }
+        removeK(row+moves[m][0],col+moves[m][1]);
+      }
+      //Do the same as queens except instead of going through all the rows, go through all possible moves
+    }
+    return false;
+  }
+
+
+  private boolean countHelper(int row ,int col, int level){
+
+    if (row<0 || col<0 || row>board.length || col>board[0].length)return false;
+    if (level>board.length * board[0].length){count ++; return true;}
+
+    for (int m=0;m<moves.length;m++){
+      if (addK(row+moves[m][0],col+moves[m][1],level)) {
+       if (countHelper(row+moves[m][0],col+moves[m][1],level+1)){
+         count ++;
           return true;
         }
         removeK(row+moves[m][0],col+moves[m][1]);
