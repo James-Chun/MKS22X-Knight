@@ -103,8 +103,8 @@ public class KnightBoard{
   public boolean solve(int startingRow, int startingCol){
     if (!checkBoard()) {throw new IllegalStateException("ATTEMPTING TO WORK ON NON-EMPTY BOARD");}
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
-
-    return solveH(startingRow,startingCol,1);
+    board[startingRow][startingCol]=1;
+    return solveH(startingRow,startingCol,2);
   }
 
   /*
@@ -127,10 +127,10 @@ public class KnightBoard{
     if (level>board.length * board[0].length)return true;
 
     for (int m=0;m<moves.length;m++){
-      if (addK(row,col,level) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
-        return true;
-      }
-      removeK(row,col);
+      if (addK(row+moves[m][0],col+moves[m][1],level) && solveH(row+moves[m][0],col+moves[m][1],level+1)){
+          return true;
+        }
+        removeK(row+moves[m][0],col+moves[m][1]);
       //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
     return false;
