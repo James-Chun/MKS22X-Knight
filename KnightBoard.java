@@ -124,6 +124,7 @@ public class KnightBoard{
     if (startingRow >= board.length || startingCol >= board[startingRow].length){throw new IllegalArgumentException("INDEX IS OUT OF BOUNDS");}
     board[startingRow][startingCol]=1;
     countHelper(startingRow,startingCol,2);
+    if ( solved() ) {return count;}
     board[startingRow][startingCol]=0;
     return count;
   }
@@ -149,22 +150,18 @@ public class KnightBoard{
   }
 
 
-  private boolean countHelper(int row ,int col, int level){
+  private void countHelper(int row ,int col, int level){
 
-    if (row<0 || col<0 || row>board.length || col>board[0].length)return false;
-    if (level>board.length * board[0].length){count ++; return true;}
+    if (level>board.length * board[0].length){count ++;}
 
     for (int m=0;m<moves.length;m++){
       if (addK(row+moves[m][0],col+moves[m][1],level)) {
-       if (countHelper(row+moves[m][0],col+moves[m][1],level+1)){
-         count ++;
-          return true;
-        }
+       countHelper(row+moves[m][0],col+moves[m][1],level+1);
+
         removeK(row+moves[m][0],col+moves[m][1]);
       }
       //Do the same as queens except instead of going through all the rows, go through all possible moves
     }
-    return false;
   }
 
 
@@ -181,8 +178,8 @@ public class KnightBoard{
     //System.out.println(board);
     //System.out.println(board.moves());
   //  System.out.println(board);
-    board.solve(0,0);
-    //System.out.println(board.countSolutions(0,0));
+      //board.solve(0,0);
+    System.out.println(board.countSolutions(Integer.parseInt(args[2]),Integer.parseInt(args[3])));
     System.out.println(board);
     //System.out.println(board.toStringDebug());
   }
